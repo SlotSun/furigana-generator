@@ -13,6 +13,19 @@ function App() {
   const [rubyHtml, setRubyHtml] = useState('');
   const [tokenizer, setTokenizer] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(rubyHtml).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+      }
+    );
+  };
 
   useEffect(() => {
     // Initialize Kuromoji tokenizer
@@ -97,7 +110,12 @@ function App() {
             dangerouslySetInnerHTML={{ __html: rubyHtml }}
           />
           
-          <h2 className="mt-4">HTML:</h2>
+          <div className="d-flex justify-content-between align-items-center mt-4">
+            <h2 className="mb-0">HTML:</h2>
+            <button className="btn btn-secondary btn-sm" onClick={handleCopy}>
+              {copied ? 'コピーしました！' : 'コピー (Copy)'}
+            </button>
+          </div>
           <pre className="p-3 border rounded bg-dark text-white text-break">
             <code>{rubyHtml}</code>
           </pre>
