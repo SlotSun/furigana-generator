@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     // Initialize Kuromoji tokenizer
     kuromoji
-      .builder({ dicPath: 'https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict/' })
+      .builder({ dicPath: '/dict/' })
       .build((err, tokenizer) => {
         if (err) {
           console.error('Kuromoji build error:', err);
